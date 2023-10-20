@@ -52,7 +52,7 @@ export default defineComponent({
                 <thead>
                 <tr>
                     <th scope="col">
-                        id
+                        id вавававава
                     </th>
                     <th scope="col">
                         title
