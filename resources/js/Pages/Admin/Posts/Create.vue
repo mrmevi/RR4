@@ -1,73 +1,3 @@
-<script>
-import {defineComponent} from 'vue'
-import Layout from "@/Shared/Admin/Layout.vue";
-import {Head, useForm} from "@inertiajs/vue3";
-import BackButton from "@/Components/Admin/button/BackButton.vue";
-import route from "ziggy-js";
-import {Dropzone} from "dropzone";
-import 'dropzone/dist/dropzone.css'
-import 'dropzone/dist/basic.css'
-
-
-export default defineComponent({
-    components: {
-        BackButton,
-        Head,
-        Layout,
-    },
-    setup() {
-        const form = useForm({
-            title: null,
-            description: null,
-            content: null,
-            coordinate: null,
-            basin_id: null,
-            fish_id: null,
-            images: null
-        });
-
-        function store() {
-            form.images = this.dropzone.getAcceptedFiles()
-            form.post(route('posts.store'))
-        }
-
-        return {form, store};
-    },
-    props: {
-        fish: {
-            type: Object,
-            required: true
-        },
-        basins: {
-            type: Object,
-            required: true
-        }
-    },
-    data() {
-        return {
-            dropzone: null
-        }
-    },
-    mounted() {
-        this.dropzone = new Dropzone(this.$refs.dropzone, {
-            url: "22",
-            acceptedFiles: '.jpg,.png,.jpeg',
-            dictDefaultMessage: 'Перетащите файлы сюда или нажмите для загрузки',
-            dictFallbackMessage: 'Ваш браузер не поддерживает перетаскивание файлов',
-            dictInvalidFileType: 'Неверный тип файла. Разрешены только файлы с расширениями: {{acceptedFiles}}',
-            dictResponseError: 'Сервер вернул ошибку {{statusCode}}',
-            dictCancelUpload: 'Отменить загрузку',
-            dictCancelUploadConfirmation: 'Вы уверены, что хотите отменить загрузку?',
-            dictRemoveFile: 'Отменить',
-            addRemoveLinks: true,
-            clickable: true,
-            autoProcessQueue: false,
-        })
-    },
-    name: "Create"
-})
-</script>
-
 <template>
     <Head>
         <title>Admin | Посты | Создание</title>
@@ -98,17 +28,11 @@ export default defineComponent({
                     </div>
                     <div class="basin">
                         <span class="">Водоем:</span>
-                        <input list="basins" v-model="form.basin_id" type="basin_id">
-                        <datalist id="basins">
-                            залупа
-                        </datalist>
+                        <inputUIComponent :arrayFindID="basins" @item-changed="basinsID" />
                     </div>
                     <div class="fish">
                         <span class="">Рыба:</span>
-                        <input list="fish" v-model="form.fish_id">
-                        <datalist id="fish">
-                            залупа
-                        </datalist>
+                        <inputUIComponent :arrayFindID="fish" @item-changed="fishID" />
                     </div>
                 </div>
                 <div class="form__post-images_span">
@@ -127,6 +51,91 @@ export default defineComponent({
         </div>
     </Layout>
 </template>
+
+
+
+
+<script>
+import { defineComponent } from 'vue'
+import Layout from "@/Shared/Admin/Layout.vue";
+import { Head, useForm } from "@inertiajs/vue3";
+import BackButton from "@/Components/Admin/button/BackButton.vue";
+import inputUIComponent from "@/Components/Admin/inputUIComponent.vue"; //Импорт инпута
+import route from "ziggy-js";
+import { Dropzone } from "dropzone";
+import 'dropzone/dist/dropzone.css'
+import 'dropzone/dist/basic.css'
+
+
+export default defineComponent({
+    props: {
+        fish: {
+            type: Object,
+            required: true
+        },
+        basins: {
+            type: Object,
+            required: true
+        }
+    },
+    data() {
+        return {
+            dropzone: null,
+            selectedValue: '',
+        }
+    },
+    components: {
+        BackButton,
+        Head,
+        Layout,
+        inputUIComponent,
+    },
+    setup() {
+        const form = useForm({
+            title: null,
+            description: null,
+            content: null,
+            coordinate: null,
+            basin_id: null,
+            fish_id: null,
+            images: null
+        });
+        function store() {
+            form.images = this.dropzone.getAcceptedFiles()
+            form.post(route('posts.store'))
+        }
+
+        return { form, store };
+    },
+    mounted() {
+        this.dropzone = new Dropzone(this.$refs.dropzone, {
+            url: "22",
+            acceptedFiles: '.jpg,.png,.jpeg',
+            dictDefaultMessage: 'Перетащите файлы сюда или нажмите для загрузки',
+            dictFallbackMessage: 'Ваш браузер не поддерживает перетаскивание файлов',
+            dictInvalidFileType: 'Неверный тип файла. Разрешены только файлы с расширениями: {{acceptedFiles}}',
+            dictResponseError: 'Сервер вернул ошибку {{statusCode}}',
+            dictCancelUpload: 'Отменить загрузку',
+            dictCancelUploadConfirmation: 'Вы уверены, что хотите отменить загрузку?',
+            dictRemoveFile: 'Отменить',
+            addRemoveLinks: true,
+            clickable: true,
+            autoProcessQueue: false,
+        })
+    },
+    methods: {
+        basinsID(selectedKey) {
+            this.form.basin_id = selectedKey
+        },
+        fishID(selectedKey) {
+            this.form.fish = selectedKey
+        }
+    },
+    name: "Create"
+})
+</script>
+
+
 
 <style scoped>
 .form__post {
@@ -247,9 +256,11 @@ textarea:focus {
 .form__post-submit button:hover {
     color: white;
 }
-.form__post-images_span{
+
+.form__post-images_span {
     padding-top: 20px;
 }
+
 .form__post-images {
     padding-top: 20px;
     display: flex;
