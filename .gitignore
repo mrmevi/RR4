@@ -1,0 +1,15 @@
+<<<<<<< HEAD
+=======
+node_modules/
+vendor/
+/.env
+/vite.config.js
+/package-lock.json
+/package.json
+/.htaccess
+/.editorconfig
+/.gitattributes
+/.env.example
+/composer.lock
+/composer.json
+>>>>>>> 5bbc79f1200fd72c61ef340327f27d71e8b6f074

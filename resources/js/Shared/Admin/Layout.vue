@@ -19,8 +19,17 @@ export default defineComponent({
                 рр4 | admin
             </div>
             <div class="adminLayout__header-rightSide">
-                <span>admin</span>
-                <button>Выйти</button>
+                <span v-if="$page.props.user">{{ $page.props.user.name }}</span>
+                <button v-if="$page.props.user">
+                    <Link :href="route('logout')" class="adminLayout__main-sideBar-link">
+                        Выйти
+                    </Link>
+                </button>
+                <button v-if="!$page.props.user">
+                    <Link :href="route('login.create')" class="adminLayout__main-sideBar-link">
+                        Войти
+                    </Link>
+                </button>
             </div>
         </div>
         <div id="adminLayout__main">

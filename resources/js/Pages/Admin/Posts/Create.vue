@@ -1,3 +1,80 @@
+<<<<<<< HEAD
+=======
+<script>
+import {defineComponent} from 'vue'
+import Layout from "@/Shared/Admin/Layout.vue";
+import {Head, useForm} from "@inertiajs/vue3";
+import BackButton from "@/Components/Admin/button/BackButton.vue";
+import route from "ziggy-js";
+import {Dropzone} from "dropzone";
+import 'dropzone/dist/dropzone.css'
+import 'dropzone/dist/basic.css'
+
+
+export default defineComponent({
+    components: {
+        BackButton,
+        Head,
+        Layout,
+    },
+    setup() {
+        const form = useForm({
+            title: null,
+            description: null,
+            content: null,
+            coordinate: null,
+            basin_id: null,
+            fish_id: null,
+            images: null
+        });
+
+        function store() {
+            form.images = this.dropzone.getAcceptedFiles()
+            form.post(route('posts.store'))
+        }
+
+        return {form, store};
+    },
+    props: {
+        fish: {
+            type: Object,
+            required: true
+        },
+        basins: {
+            type: Object,
+            required: true
+        }
+    },
+
+    data() {
+        return {
+            dropzone: null,
+        }
+    },
+    mounted() {
+        this.dropzone = new Dropzone(this.$refs.dropzone, {
+            url: "22",
+            acceptedFiles: '.jpg,.png,.jpeg',
+            dictDefaultMessage: 'Перетащите файлы сюда или нажмите для загрузки',
+            dictFallbackMessage: 'Ваш браузер не поддерживает перетаскивание файлов',
+            dictInvalidFileType: 'Неверный тип файла. Разрешены только файлы с расширениями: {{acceptedFiles}}',
+            dictResponseError: 'Сервер вернул ошибку {{statusCode}}',
+            dictCancelUpload: 'Отменить загрузку',
+            dictCancelUploadConfirmation: 'Вы уверены, что хотите отменить загрузку?',
+            dictRemoveFile: 'Отменить',
+            addRemoveLinks: true,
+            clickable: true,
+            autoProcessQueue: false,
+        })
+    },
+    methods: {
+
+    },
+    name: "Create"
+})
+</script>
+
+>>>>>>> 5bbc79f1200fd72c61ef340327f27d71e8b6f074
 <template>
     <Head>
         <title>Admin | Посты | Создание</title>
@@ -24,15 +101,31 @@
                 <div class="form__post-information">
                     <div class="coordinate">
                         <span class="">Координаты:</span>
-                        <input v-model="form.coordinate" type="coordinate">
+                        <input v-model="form.coordinate" type="text">
                     </div>
                     <div class="basin">
                         <span class="">Водоем:</span>
+<<<<<<< HEAD
                         <inputUIComponent :arrayFindID="basins" @item-changed="basinsID" />
                     </div>
                     <div class="fish">
                         <span class="">Рыба:</span>
                         <inputUIComponent :arrayFindID="fish" @item-changed="fishID" />
+=======
+                        <input list="basins" type="text">
+                        <datalist id="basins">
+                            <option v-for="(item, id) in basins" :key="id" :value="item"
+                                    @change="onSave(id)"> {{ item }}
+                            </option>
+                        </datalist>
+                    </div>
+                    <div class="fish">
+                        <span class="">Рыба:</span>
+                        <input list="fish" v-model="form.fish_id">
+                        <datalist id="fish">
+                            <option v-for="(key, value) in fish">{{ value }}</option>
+                        </datalist>
+>>>>>>> 5bbc79f1200fd72c61ef340327f27d71e8b6f074
                     </div>
                 </div>
                 <div class="form__post-images_span">
