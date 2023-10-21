@@ -1,0 +1,12 @@
+node_modules/
+vendor/
+/.env
+/vite.config.js
+/package-lock.json
+/package.json
+/.htaccess
+/.editorconfig
+/.gitattributes
+/.env.example
+/composer.lock
+/composer.json

@@ -43,9 +43,10 @@ export default defineComponent({
             required: true
         }
     },
+
     data() {
         return {
-            dropzone: null
+            dropzone: null,
         }
     },
     mounted() {
@@ -63,6 +64,9 @@ export default defineComponent({
             clickable: true,
             autoProcessQueue: false,
         })
+    },
+    methods: {
+
     },
     name: "Create"
 })
@@ -94,20 +98,22 @@ export default defineComponent({
                 <div class="form__post-information">
                     <div class="coordinate">
                         <span class="">Координаты:</span>
-                        <input v-model="form.coordinate" type="coordinate">
+                        <input v-model="form.coordinate" type="text">
                     </div>
                     <div class="basin">
                         <span class="">Водоем:</span>
-                        <input list="basins" v-model="form.basin_id" type="basin_id">
+                        <input list="basins" type="text">
                         <datalist id="basins">
-                            залупа
+                            <option v-for="(item, id) in basins" :key="id" :value="item"
+                                    @change="onSave(id)"> {{ item }}
+                            </option>
                         </datalist>
                     </div>
                     <div class="fish">
                         <span class="">Рыба:</span>
                         <input list="fish" v-model="form.fish_id">
                         <datalist id="fish">
-                            залупа
+                            <option v-for="(key, value) in fish">{{ value }}</option>
                         </datalist>
                     </div>
                 </div>
@@ -247,9 +253,11 @@ textarea:focus {
 .form__post-submit button:hover {
     color: white;
 }
-.form__post-images_span{
+
+.form__post-images_span {
     padding-top: 20px;
 }
+
 .form__post-images {
     padding-top: 20px;
     display: flex;

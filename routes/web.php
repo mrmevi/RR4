@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::get('/', 'App\Http\Controllers\HomeController@index')->name('home');
 
 Route::group(['prefix' => 'admin'], function () {
     Route::get('/', 'App\Http\Controllers\admin\MainController@index')->name('admin.index');
@@ -19,9 +20,17 @@ Route::group(['prefix' => 'admin'], function () {
     Route::resource('/users', 'App\Http\Controllers\admin\UserController');
     Route::resource('/fish', 'App\Http\Controllers\admin\FishController');
     Route::resource('/basins', 'App\Http\Controllers\admin\BasinController');
-    Route::get('/posts/decide/{id}', 'App\Http\Controllers\admin\PostController@decide')->name( 'posts.decide');
-    Route::get('/posts/dontDecide/{id}', 'App\Http\Controllers\admin\PostController@dontDecide')->name( 'posts.dontDecide');
+    Route::get('/posts/decide/{id}', 'App\Http\Controllers\admin\PostController@decide')->name('posts.decide');
+    Route::get('/posts/dontDecide/{id}', 'App\Http\Controllers\admin\PostController@dontDecide')->name('posts.dontDecide');
 });
+
+
+Route::get('/register', 'App\Http\Controllers\UserController@registerCreate')->name('register.create');
+Route::post('/register', 'App\Http\Controllers\UserController@register')->name('register');
+Route::get('/login', 'App\Http\Controllers\UserController@loginCreate')->name('login.create');
+Route::post('/login', 'App\Http\Controllers\UserController@login')->name('login');
+
+Route::get('/logout', 'App\Http\Controllers\UserController@logout')->name('logout')->middleware('auth');
 
 /*Route::get('/', 'App\Http\Controllers\HomeController@index')->name('home');
 Route::get('/article/{slug}', 'App\Http\Controllers\HomeController@show')->name('home.article');

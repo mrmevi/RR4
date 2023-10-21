@@ -9,9 +9,9 @@ use Inertia\Inertia;
 
 class HomeController extends Controller{
 
-    /*public function index(){
-
-    }*/
+    public function index(){
+        return Inertia::render('Front/Home');
+    }
 
     /*public function index(){
         $posts = Post::with('basin','fish','user')->where('is_moderate', '0')->orderBy('id', 'desc')->paginate(3);
