@@ -2,16 +2,23 @@
 import {defineComponent} from 'vue'
 import {useForm} from "@inertiajs/vue3";
 import route from "ziggy-js";
+import {Link} from "@inertiajs/vue3";
 
 export default defineComponent({
-    setup(){
+    methods: {route},
+    components: {
+        Link
+    },
+    setup() {
         const form = useForm({
             name: null,
             password: null,
         });
-        function login(){
+
+        function login() {
             form.post(route('login'))
         }
+
         return {form, login};
     },
     name: "Login"
@@ -39,6 +46,11 @@ export default defineComponent({
                     Войти
                 </button>
             </div>
+            <span class="register">Нет аккаунта?
+                <Link class="register__link" :href="route('register.create')">
+                    Зарегистрироваться
+                </Link>
+            </span>
         </div>
     </form>
 </template>
@@ -59,6 +71,7 @@ export default defineComponent({
     border-radius: 60px;
     background: #FFF;
 }
+
 .form__title span {
     color: #202020;
     font-size: 30px;
@@ -85,7 +98,8 @@ export default defineComponent({
     gap: 10px;
     flex-shrink: 0;
 }
-.form__data-input span{
+
+.form__data-input span {
     color: #202020;
     font-size: 20px;
     font-style: normal;
@@ -93,7 +107,8 @@ export default defineComponent({
     line-height: normal;
     letter-spacing: -1.2px;
 }
-.form__data-input input{
+
+.form__data-input input {
     height: 40px;
     align-self: stretch;
     border-radius: 20px;
@@ -101,15 +116,18 @@ export default defineComponent({
     background: #F5F5F5;
     padding-left: 30px;
 }
-.form__data-input input:focus{
+
+.form__data-input input:focus {
     border: 1px solid grey;
     outline: none;
     padding-left: 30px;
 }
-.form__submit{
+
+.form__submit {
     padding-top: 50px;
 }
-.form__submit button{
+
+.form__submit button {
     display: flex;
     width: 350px;
     height: 60px;
@@ -118,5 +136,12 @@ export default defineComponent({
     border-radius: 20px;
     background: #3C32AC;
     color: #F5F5F5;
+}
+.register{
+    padding-top: 7px;
+    font-size: 16px;
+}
+.register__link{
+    color: #3C32AC;
 }
 </style>
