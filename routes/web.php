@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 Route::get('/', 'App\Http\Controllers\HomeController@index')->name('home');
 
-Route::group(['prefix' => 'admin'], function () {
+Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('/', 'App\Http\Controllers\admin\MainController@index')->name('admin.index');
     Route::resource('/posts', 'App\Http\Controllers\admin\PostController');
     Route::resource('/users', 'App\Http\Controllers\admin\UserController');
@@ -24,14 +24,15 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('/posts/dontDecide/{id}', 'App\Http\Controllers\admin\PostController@dontDecide')->name('posts.dontDecide');
 });
 
-
 Route::get('/register', 'App\Http\Controllers\UserController@registerCreate')->name('register.create');
 Route::post('/register', 'App\Http\Controllers\UserController@register')->name('register');
-Route::get('/login', 'App\Http\Controllers\UserController@loginCreate')->name('login.create');
-Route::post('/login', 'App\Http\Controllers\UserController@login')->name('login');
-
-Route::get('/logout', 'App\Http\Controllers\UserController@logout')->name('logout')->middleware('auth');
-
+Route::group(['middleware' => 'guest'], function (){
+    Route::get('/login', 'App\Http\Controllers\UserController@loginCreate')->name('login.create');
+    Route::post('/login', 'App\Http\Controllers\UserController@login')->name('login');
+});
+Route::group(['middleware' => 'auth'], function (){
+    Route::get('/logout', 'App\Http\Controllers\UserController@logout')->name('logout');
+});
 /*Route::get('/', 'App\Http\Controllers\HomeController@index')->name('home');
 Route::get('/article/{slug}', 'App\Http\Controllers\HomeController@show')->name('home.article');
 Route::get('/fish', 'App\Http\Controllers\FishController@index')->name('home.fish');

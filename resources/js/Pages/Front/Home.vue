@@ -1,16 +1,19 @@
 <script>
 import {defineComponent} from 'vue'
+import MainLayout from "@/Shared/Front/MainLayout.vue";
 
 export default defineComponent({
+    components:{
+        MainLayout,
+    },
     name: "Home"
 })
 </script>
 
 <template>
-Home
-<div v-if="$page.props.user">
-    {{ $page.props.user.name }}
-</div>
+    <MainLayout>
+        Home Content
+    </MainLayout>
 </template>
 
 <style scoped>

@@ -1,9 +1,11 @@
 <script>
 import {defineComponent} from 'vue'
-import {useForm} from "@inertiajs/vue3";
+import {Link, useForm} from "@inertiajs/vue3";
 import route from "ziggy-js";
 
 export default defineComponent({
+    methods: {route},
+    components: {Link},
     setup(){
         const form = useForm({
             name: null,
@@ -49,6 +51,11 @@ export default defineComponent({
                     Зарегистрироваться
                 </button>
             </div>
+            <span class="login">Уже есть аккаунт?
+                <Link class="login__link" :href="route('login.create')">
+                    Войти
+                </Link>
+            </span>
         </div>
     </form>
 </template>
@@ -128,5 +135,12 @@ export default defineComponent({
     border-radius: 20px;
     background: #3C32AC;
     color: #F5F5F5;
+}
+.login{
+    padding-top: 7px;
+    font-size: 16px;
+}
+.login__link{
+    color: #3C32AC;
 }
 </style>
