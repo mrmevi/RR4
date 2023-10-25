@@ -12,7 +12,7 @@ export default defineComponent({
 
 <template>
     <MainLayout>
-        Home Content
+        Content
     </MainLayout>
 </template>
 
