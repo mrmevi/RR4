@@ -2,6 +2,7 @@
     height: 100%;
     width: 100%;
     display: table-column;
+    overflow-x: scroll;
 }
 
 .adminCreatePosts-title {
@@ -30,7 +31,8 @@
 .adminCreatePosts__formFields-shortDescription,
 .adminCreatePosts__formFields-description,
 .adminCreatePosts__formFields-coordinate,
-.adminCreatePosts__formFields-dataList {
+.adminCreatePosts__formFields-dataList,
+.adminCreatePosts__addImagesField {
     width: 100%;
     height: auto;
     display: flex;
@@ -46,7 +48,7 @@
 .adminCreatePosts__formFields-coordinate input,
 .adminCreatePosts__formFields-dataList input {
     flex-grow: 1;
-    margin: 20px 0px 20px 10px;
+    margin: 10px 0px 20px 10px;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -54,9 +56,10 @@
     outline: none;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }
+
 .adminCreatePosts__button-submit {
     width: 15%;
-    margin-top: 30px;
+    margin-top: 10px;
     font-weight: 700;
     color: white;
     text-decoration: none;
