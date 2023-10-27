@@ -33,17 +33,25 @@
                         <inputUIComponent list-id="fish" :arrayFindID="fish" @item-changed="fishID" />
                     </div>
                     <div class="adminCreatePosts__addImagesField">
-                        <input type="file" @change="handleFileUpload" multiple>
+                        <input type="file" title="Выберите файлы" placeholder="Выберите файлы" @change="handleFileUpload" multiple>
                         <div class="adminCreatePosts__addImagesField-image-preview" v-for="(image, index) in images"
-                            :key="index">
-                            <img :src="image.url" :alt="image.name">
-                            <div class="adminCreatePosts__addImagesField_iconsContainer">
-                                <img src="../../../../assets/img/shared.png" @click="deleteImage(index)" title="Нажмите чтобы просмотреть картинку">
-                                <img src="../../../../assets/img/tick.png" @click="deleteImage(index)" title="Нажмите чтобы эта картинка стала главной для поста">
-                                <img src="../../../../assets/img/del.png" @click="deleteImage(index)" title="Нажмите чтобы удалить картинку"> 
+                            :key="index" @mouseover="upPanel = index" @mouseleave="upPanel = null">
+                            <img :src="image.url" :alt="image.name"
+                                :class="{ 'adminCreatePosts__addImagesField-image-preview-panel-green-border': index === selectedImageIndex }">
+                            <div class="adminCreatePosts__addImagesField-deleteIcon" @click="deleteImage(index)">
+                                ✕</div>
+                            <div class='adminCreatePosts__addImagesField-image-preview-panel' v-if="upPanel === index">
+                                <img src="../../../../assets/img/shared.png" :alt="image.name"
+                                    @click="toggleFullscreen(image)">
+                                <img src="../../../../assets/img/tick.png" :alt="image.name" @click="selectImage(index)">
+                            </div>
                         </div>
                     </div>
+                    <div class="adminCreatePosts_modal" v-if="isOpen">
+                        <span class="adminCreatePosts_close" @click="isOpen = false" @keyup.enter.stop="handleEnterKey">×</span>
+                        <img :src="modalImage" class="adminCreatePosts_modal-content" id="img">
                     </div>
+                    <button class="adminCreatePosts__button-submit">Отправить</button>
                 </form>
             </div>
         </div>
@@ -73,7 +81,11 @@ export default defineComponent({
     },
     data() {
         return {
-            images: []
+            images: [],
+            upPanel: false,
+            isOpen: false,
+            selectedImageIndex: null,
+            isImageClicked: false,
         }
     },
     components: {
@@ -93,6 +105,7 @@ export default defineComponent({
             images: null
         });
         function store() {
+            this.form.images = this.images
             form.post(route('posts.store'))
         }
 
@@ -116,7 +129,7 @@ export default defineComponent({
                 reader.onload = () => {
                     this.images.push({
                         url: reader.result,
-                        name: file.name
+                        name: file.name,
                     });
                 };
                 reader.readAsDataURL(file);
@@ -124,7 +137,17 @@ export default defineComponent({
         },
         deleteImage(index) {
             this.images.splice(index, 1);
-        }
+        },
+        selectImage(index) {
+            this.selectedImageIndex = index;
+        },
+        toggleFullscreen(image) {
+            this.isOpen = true;
+            this.modalImage = image.url
+        },
+        handleEnterKey() {
+      this.isOpen = false;
+    },
     },
     name: "Create"
 })
@@ -138,9 +161,7 @@ export default defineComponent({
     display: inline-block;
     position: relative;
     margin: 10px;
-    height:auto;
-    border: solid 1px;
-    border-color: #ccc;
+    height: 130px;
 }
 
 .adminCreatePosts__addImagesField-image-preview img {
@@ -148,16 +169,73 @@ export default defineComponent({
     height: 130px;
     object-fit: cover;
 }
-.adminCreatePosts__addImagesField_iconsContainer{
-    height: auto;
-    width:100%;
-    display: flex;
-    justify-content: space-between;
+
+.adminCreatePosts__addImagesField-deleteIcon {
+    color: rgb(0, 0, 0);
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    padding: 5px;
+    background-color: rgb(255, 255, 255);
 }
-.adminCreatePosts__addImagesField_iconsContainer img{
-  height: 25px;
-  width: 25px;
-  margin:5px;
+
+.adminCreatePosts__addImagesField-deleteIcon:hover {
+    opacity: 1;
+    cursor: pointer;
+}
+
+.adminCreatePosts__addImagesField-image-preview-panel {
+    width: 100%;
+    display: flex;
+    position: absolute;
+    cursor: pointer;
+    bottom: 0px;
+    padding: 5px;
+    background-color: rgba(255, 255, 255, 0.304);
+    justify-content: space-around;
+}
+
+.adminCreatePosts__addImagesField-image-preview-panel img {
+    height: 25px;
+    width: 25px;
+}
+
+.adminCreatePosts_modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.adminCreatePosts_modal img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.adminCreatePosts_close {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.adminCreatePosts_close:hover,
+.adminCreatePosts_close:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.adminCreatePosts__addImagesField-image-preview-panel-green-border {
+    border: 2px solid green;
 }
 
 input:focus {
