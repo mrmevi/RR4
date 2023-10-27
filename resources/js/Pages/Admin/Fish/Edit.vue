@@ -41,7 +41,6 @@ export default defineComponent({
     <Layout>
         <div class="adminLayout__main-nameOption">
             <span>Форма редактирование наименования рыбы</span>
-            <BackButton></BackButton>
         </div>
         <div class="form__fish">
             <form @submit.prevent="update">
@@ -78,7 +77,7 @@ export default defineComponent({
                 </div>
                 <div class="form__fish-submit">
                     <button type="submit">
-                        Добавить
+                        Изменить
                     </button>
                 </div>
             </form>

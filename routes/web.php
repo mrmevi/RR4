@@ -20,6 +20,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::resource('/users', 'App\Http\Controllers\admin\UserController');
     Route::resource('/fish', 'App\Http\Controllers\admin\FishController');
     Route::resource('/basins', 'App\Http\Controllers\admin\BasinController');
+    Route::resource('/tags', 'App\Http\Controllers\Admin\TagController');
     Route::get('/posts/decide/{id}', 'App\Http\Controllers\admin\PostController@decide')->name('posts.decide');
     Route::get('/posts/dontDecide/{id}', 'App\Http\Controllers\admin\PostController@dontDecide')->name('posts.dontDecide');
 });

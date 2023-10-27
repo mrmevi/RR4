@@ -1,15 +1,15 @@
 <template>
     <Head>
-        <title>Admin | Водоемы | Создание</title>
+        <title>Admin | Теги | Создание</title>
     </Head>
     <Layout>
         <div class="adminLayout__main-nameOption">
-            <span>Форма добавления водоема</span>
+            <span>Форма добавления тега</span>
         </div>
         <div class="form__post">
             <form @submit.prevent="store">
                 <div class="form__post-title">
-                    <span class="">Название водоема:</span>
+                    <span class="">Название тега:</span>
                     <input v-model="form.title">
                 </div>
                 <div class="form__post-submit">
@@ -39,7 +39,7 @@ export default defineComponent({
             title: null,
         });
         function store(){
-            form.post(route('basins.store'))
+            form.post(route('tags.store'))
         }
 
         return {form, store};

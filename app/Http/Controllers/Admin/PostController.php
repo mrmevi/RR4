@@ -8,11 +8,7 @@ use App\Models\Fish;
 use App\Models\Image;
 use App\Models\Post;
 use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
-use function Symfony\Component\String\b;
 
 class PostController extends Controller
 {

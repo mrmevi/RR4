@@ -4,80 +4,49 @@ import Layout from "@/Shared/Admin/Layout.vue";
 import {Head, useForm} from "@inertiajs/vue3";
 import route from "ziggy-js";
 
-
 export default defineComponent({
+    name: "Edit",
     components: {
         Head,
         Layout,
     },
-    setup(){
-        const form = useForm({
-            title: null,
-            simple: null,
-            zachet: null,
-            chat: null,
-            trophy: null,
-            rareTrophy: null,
-        });
-        function store(){
-            form.post(route('fish.store'))
-        }
-
-        return {form, store};
+    props:{
+        tag: Object,
     },
-    name: "Create"
+    setup(props){
+        const form = useForm({
+            title: props.tag.title,
+        });
+        function update(){
+            form.put(route('tags.update', props.tag.id))
+        }
+        return {form, update};
+    },
 })
 </script>
 
 <template>
     <Head>
-        <title>Admin | Рыбы | Создание</title>
+        <title>Admin | Теги | Изменение</title>
     </Head>
-    <Layout>
+    <layout>
         <div class="adminLayout__main-nameOption">
-            <span>Форма добавления наименования рыбы</span>
+            <span>Форма редактирование тега</span>
         </div>
         <div class="form__fish">
-            <form @submit.prevent="store">
+            <form @submit.prevent="update">
                 <div class="form__fish-title">
-                    <span class="">Наименование рыбы:</span>
+                    <span class="">Наименование тега:</span>
                     <input v-model="form.title">
-                </div>
-                <div class="form__fish-weight">
-                    <span class="">Веса:</span>
-                </div>
-                <div class="form__fish-information1">
-                    <div class="weight">
-                        <span class="">Не зачетная:</span>
-                        <input v-model="form.simple" type="number" step=0.001>
-                    </div>
-                    <div class="weight">
-                        <span class="">Зачетная:</span>
-                        <input list="basins" v-model="form.zachet" type="number" step=0.001>
-                    </div>
-                    <div class="weight">
-                        <span class="">Чатовая:</span>
-                        <input list="fish" v-model="form.chat" type="number" step=0.001>
-                    </div>
-                </div>
-                <div class="form__fish-information2">
-                    <div class="weight">
-                        <span class="">Трофей:</span>
-                        <input v-model="form.trophy" type="number" step=0.001>
-                    </div>
-                    <div class="weight">
-                        <span class="">Редкий трофей:</span>
-                        <input list="basins" v-model="form.rareTrophy" type="number" step=0.001>
-                    </div>
                 </div>
                 <div class="form__fish-submit">
                     <button type="submit">
-                        Добавить
+                        Изменить
                     </button>
                 </div>
             </form>
         </div>
-    </Layout>
+    </layout>
 </template>
 
 <style scoped>
@@ -85,7 +54,6 @@ export default defineComponent({
     padding-top: 20px;
     padding-left: 35px;
 }
-
 span {
     color: #202020;
     font-size: 18px;
@@ -162,8 +130,10 @@ textarea:focus {
     width: 140px;
     height: 40px;
     border-radius: 16px;
-    border: 2px solid #249112;
-    background: rgba(94, 232, 99, 0.81);
+    border: 2px solid chocolate;
+    background-color: coral;
+    opacity: 80%;
+
 }
 .form__fish-submit button:hover{
     color: white;

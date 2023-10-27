@@ -47,6 +47,9 @@ export default defineComponent({
                     <Link class="adminLayout__main-sideBar-link" :href="route('basins.index')">Водоемы</Link>
                 </button>
                 <button>
+                    <Link class="adminLayout__main-sideBar-link" :href="route('tags.index')">Теги</Link>
+                </button>
+                <button>
                     <Link class="adminLayout__main-sideBar-link" :href="route('users.index')">Пользователи</Link>
                 </button>
             </div>
