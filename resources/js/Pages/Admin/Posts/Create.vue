@@ -15,7 +15,8 @@
                     </div>
                     <div class="adminCreatePosts__formFields-shortDescription">
                         <span class="">Крaткое описание поста:</span>
-                        <input v-model="form.description" type="description" placeholder="Введите краткое описание поста...">
+                        <input v-model="form.description" type="description"
+                            placeholder="Введите краткое описание поста...">
                     </div>
                     <div class="adminCreatePosts__formFields-description">
                         <span class="">Полное описание поста:</span>
@@ -26,14 +27,23 @@
                         <input v-model="form.coordinate" type="text" placeholder="Введите координаты места ловли...">
                     </div>
                     <div class="adminCreatePosts__formFields-dataList">
-                            <span class="">Водоем:</span>
-                            <inputUIComponent list-id="basins" :arrayFindID="basins" @item-changed="basinsID" />
-                            <span class="">Рыба:</span>
-                            <inputUIComponent list-id="fish" :arrayFindID="fish" @item-changed="fishID" />
+                        <span class="">Водоем:</span>
+                        <inputUIComponent list-id="basins" :arrayFindID="basins" @item-changed="basinsID" />
+                        <span class="">Рыба:</span>
+                        <inputUIComponent list-id="fish" :arrayFindID="fish" @item-changed="fishID" />
                     </div>
-                    <button type="submit" class="adminCreatePosts__button-submit">
-                        Отправить
-                    </button>
+                    <div class="adminCreatePosts__addImagesField">
+                        <input type="file" @change="handleFileUpload" multiple>
+                        <div class="adminCreatePosts__addImagesField-image-preview" v-for="(image, index) in images"
+                            :key="index">
+                            <img :src="image.url" :alt="image.name">
+                            <div class="adminCreatePosts__addImagesField_iconsContainer">
+                                <img src="../../../../assets/img/shared.png" @click="deleteImage(index)" title="Нажмите чтобы просмотреть картинку">
+                                <img src="../../../../assets/img/tick.png" @click="deleteImage(index)" title="Нажмите чтобы эта картинка стала главной для поста">
+                                <img src="../../../../assets/img/del.png" @click="deleteImage(index)" title="Нажмите чтобы удалить картинку"> 
+                        </div>
+                    </div>
+                    </div>
                 </form>
             </div>
         </div>
@@ -63,7 +73,7 @@ export default defineComponent({
     },
     data() {
         return {
-          
+            images: []
         }
     },
     components: {
@@ -97,6 +107,23 @@ export default defineComponent({
         },
         autoResize(text) {
             this.form.content = text;
+        },
+        handleFileUpload(event) {
+            const files = event.target.files;
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                const reader = new FileReader();
+                reader.onload = () => {
+                    this.images.push({
+                        url: reader.result,
+                        name: file.name
+                    });
+                };
+                reader.readAsDataURL(file);
+            }
+        },
+        deleteImage(index) {
+            this.images.splice(index, 1);
         }
     },
     name: "Create"
@@ -106,6 +133,33 @@ export default defineComponent({
 
 <style lang="css">
 @import '../../../../styles/admin-create-post.css';
+
+.adminCreatePosts__addImagesField-image-preview {
+    display: inline-block;
+    position: relative;
+    margin: 10px;
+    height:auto;
+    border: solid 1px;
+    border-color: #ccc;
+}
+
+.adminCreatePosts__addImagesField-image-preview img {
+    width: 130px;
+    height: 130px;
+    object-fit: cover;
+}
+.adminCreatePosts__addImagesField_iconsContainer{
+    height: auto;
+    width:100%;
+    display: flex;
+    justify-content: space-between;
+}
+.adminCreatePosts__addImagesField_iconsContainer img{
+  height: 25px;
+  width: 25px;
+  margin:5px;
+}
+
 input:focus {
     border-color: blue;
     box-shadow: 0 0 5px blue;
@@ -113,7 +167,7 @@ input:focus {
 
 textarea {
     flex-grow: 1;
-    margin: 20px 0px 20px 10px;
+    margin: 10px 0px 20px 10px;
     padding: 10px;
     font-family: Arial, sans-serif;
     font-size: 16px;
@@ -124,7 +178,7 @@ textarea {
     resize: vertical;
 }
 
- textarea:focus {
+textarea:focus {
     outline: none;
     border-color: #007bff;
     box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
