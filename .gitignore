@@ -1,3 +1,5 @@
+<<<<<<< HEAD
+=======
 node_modules/
 vendor/
 /.env
@@ -10,3 +12,4 @@ vendor/
 /.env.example
 /composer.lock
 /composer.json
+>>>>>>> 5bbc79f1200fd72c61ef340327f27d71e8b6f074

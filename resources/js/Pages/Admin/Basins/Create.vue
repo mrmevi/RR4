@@ -1,3 +1,28 @@
+<template>
+    <Head>
+        <title>Admin | Водоемы | Создание</title>
+    </Head>
+    <Layout>
+        <div class="adminLayout__main-nameOption">
+            <span>Форма добавления водоема</span>
+            <BackButton></BackButton>
+        </div>
+        <div class="form__post">
+            <form @submit.prevent="store">
+                <div class="form__post-title">
+                    <span class="">Название водоема:</span>
+                    <input v-model="form.title">
+                </div>
+                <div class="form__post-submit">
+                    <button type="submit">
+                        Добавить
+                    </button>
+                </div>
+            </form>
+        </div>
+    </Layout>
+</template>
+
 <script>
 import {defineComponent} from 'vue'
 import Layout from "@/Shared/Admin/Layout.vue";
@@ -25,31 +50,6 @@ export default defineComponent({
     name: "Create"
 })
 </script>
-
-<template>
-    <Head>
-        <title>Admin | Водоемы | Создание</title>
-    </Head>
-    <Layout>
-        <div class="adminLayout__main-nameOption">
-            <span>Форма добавления водоема</span>
-            <BackButton></BackButton>
-        </div>
-        <div class="form__post">
-            <form @submit.prevent="store">
-                <div class="form__post-title">
-                    <span class="">Название водоема:</span>
-                    <input v-model="form.title">
-                </div>
-                <div class="form__post-submit">
-                    <button type="submit">
-                        Добавить
-                    </button>
-                </div>
-            </form>
-        </div>
-    </Layout>
-</template>
 
 <style scoped>
 .form__post {
