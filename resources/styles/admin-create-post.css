@@ -26,13 +26,17 @@
     margin-left: auto;
     margin-right: auto;
 }
-
+.adminCreatePosts__addImagesField {
+    width: 100%;
+    height: auto;
+    align-items: center;
+    font-size: 20px;
+}
 .adminCreatePosts__formFields-postName,
 .adminCreatePosts__formFields-shortDescription,
 .adminCreatePosts__formFields-description,
 .adminCreatePosts__formFields-coordinate,
-.adminCreatePosts__formFields-dataList,
-.adminCreatePosts__addImagesField {
+.adminCreatePosts__formFields-dataList {
     width: 100%;
     height: auto;
     display: flex;
@@ -41,12 +45,24 @@
 }
 .adminCreatePosts__formFields-dataList {
    gap:25px;
+   position: relative;
+   z-index: 2;
+   margin-bottom: 10px;
+}
+.adminCreatePosts__formFields-dataList input {
+    flex-grow: 1;
+    margin: 10px 0px 0px 0px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }
 .adminCreatePosts__formFields-postName input,
 .adminCreatePosts__formFields-shortDescription input,
 .adminCreatePosts__formFields-description input,
-.adminCreatePosts__formFields-coordinate input,
-.adminCreatePosts__formFields-dataList input {
+.adminCreatePosts__formFields-coordinate input {
     flex-grow: 1;
     margin: 10px 0px 20px 10px;
     padding: 10px;
@@ -78,4 +94,28 @@
 .adminCreatePosts__button-submit:active {
     background: rgb(33, 147, 90);
     box-shadow: 0 3px rgb(33, 147, 90) inset;
+}
+
+input:focus {
+    border-color: blue;
+    box-shadow: 0 0 5px blue;
+}
+
+textarea {
+    flex-grow: 1;
+    margin: 10px 0px 20px 10px;
+    padding: 10px;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    line-height: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    resize: vertical;
+}
+
+textarea:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }

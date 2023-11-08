@@ -1,0 +1,28 @@
+
+.customDataList {
+    width: 100%;
+    margin-right: 20px;
+}
+
+.customDataList ul {
+    position: absolute;
+    width: 100%;
+    top: 100%;
+    left: 0;
+    z-index: 1;
+    padding: 10px;
+    list-style: none;
+    background-color: #cccccc2d;
+    font-size: 17px;
+}
+
+.customDataList li {
+    padding: 10px;
+    background-color: #f2f2f2;
+    border-bottom: 1px solid #ccc;
+    cursor: pointer;
+}
+
+.customDataList li:hover {
+    background-color: #e0e0e0;
+}
