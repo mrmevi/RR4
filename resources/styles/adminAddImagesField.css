@@ -1,0 +1,145 @@
+.imageImputComponent {
+    border: 2px dashed #ccc;
+    display: flex;
+    width: 100%;
+    cursor: pointer;
+    text-align: center;
+  }
+  
+  .imageImputComponent__addBtn {
+    width: 14%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    margin-right: 15px;
+  }
+  
+  .imageImputComponent__addBtn_input {
+    opacity: 0;
+    position: absolute;
+    z-index: -1;
+    overflow: hidden;
+    width: 0.4px;
+    height: 0.4px;
+  }
+  
+  .imageImputComponent__addBtn_input_label {
+    justify-content: center;
+    align-items: center;
+    max-width: 100%;
+    border: 2px solid #150b227c;
+    padding: 30px;
+    border-radius: 6px;
+    cursor: pointer;
+    color: rgba(0, 0, 0, 0.8);
+  
+  }
+  
+  .imageImputComponent__addBtn_input_label .imageImputComponent__addBtn_input_label span {
+    transition: .25s ease;
+  }
+  
+  .imageImputComponent__addBtn_input_label span {
+    font-size: 15px;
+  }
+  
+  .imageImputComponent__addBtn_input_label:hover {
+    opacity: 0.7;
+  }
+  
+  .imageImputComponent__addBtn_input_label h1 {
+    font-size: 65px;
+  }
+  
+  .imageImputComponent__dropZone {
+    flex-grow: 1;
+    display: flex;
+    color: rgba(0, 0, 0, 0.5);
+    overflow-y: hidden;
+    gap: 15px;
+    align-items: center;
+  }
+  
+  .imageImputComponent__dropZone-text {
+    margin-left: auto;
+    margin-right: auto;
+    width: 30%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  
+  .imageImputComponent__dropZone_magePreviewField {
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: fit-content;
+    justify-content: start;
+  }
+  
+  .imageImputComponent__dropZone_magePreviewField img {
+    width: 130px;
+    height: 150px;
+    object-fit: cover;
+  }
+  
+  .imageImputComponent__dropZone_magePreviewField-deleteIcon {
+    color: rgb(0, 0, 0);
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    padding: 5px;
+    background-color: rgb(255, 255, 255);
+  }
+  
+  .imageImputComponent__dropZone_magePreviewField-deleteIcon:hover {
+    opacity: 1;
+    cursor: pointer;
+  }
+  
+  .imageImputComponent__dropZone_magePreviewField-panel {
+    width: 100%;
+    display: flex;
+    position: absolute;
+    cursor: pointer;
+    bottom: 0px;
+    padding: 5px;
+    background-color: rgba(255, 255, 255, 0.304);
+    justify-content: space-around;
+  }
+  
+  .imageImputComponent__dropZone_magePreviewField-panel img {
+    height: 25px;
+    width: 25px;
+  }
+  
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .modal-image {
+    max-width: 80%;
+    max-height: 80%;
+  }
+  .modal-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: transparent;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 25px;
+  }
+  
+  .imageImputComponent__dropZone_magePreviewField-greenBorder {
+    border: 2px solid green;
+  }
